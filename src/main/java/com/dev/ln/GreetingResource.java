@@ -1,4 +1,4 @@
-package dev.ln;
+package com.dev.ln;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;

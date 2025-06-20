@@ -1,4 +1,4 @@
-package dev.ln.controllers;
+package com.dev.ln.controllers;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.GET;

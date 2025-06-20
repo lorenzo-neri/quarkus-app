@@ -1,4 +1,4 @@
-package dev.ln;
+package com.dev.ln;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;

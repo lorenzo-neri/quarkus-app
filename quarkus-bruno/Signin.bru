@@ -1,11 +1,11 @@
 meta {
-  name: Add admin
+  name: Signin
   type: http
   seq: 2
 }
 
 post {
-  url: http://localhost:8080/api/users/register
+  url: http://localhost:8080/api/users/signin
   body: json
   auth: none
 }
@@ -16,8 +16,8 @@ headers {
 
 body:json {
   {
-    "username":"gio",
-    "password":"ciao",
-    "role":"y"
+    "username": "Merlino",
+    "password": "password",
+    "role": "admin"
   }
 }
