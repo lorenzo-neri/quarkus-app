@@ -7,12 +7,16 @@ import io.quarkus.security.jpa.Roles;
 import io.quarkus.security.jpa.UserDefinition;
 import io.quarkus.security.jpa.Username;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "users")
 @UserDefinition
+@Data
 public class User extends PanacheEntity {
+
     @Username
     public String username;
     @Password

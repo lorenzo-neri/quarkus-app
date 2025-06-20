@@ -5,7 +5,19 @@ meta {
 }
 
 post {
-  url: localhost://8080/api/admin
+  url: http://localhost:8080/api/users/register
   body: json
   auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "username":"gio",
+    "password":"ciao",
+    "role":"y"
+  }
 }
