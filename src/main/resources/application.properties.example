@@ -8,8 +8,3 @@ quarkus.datasource.password=postgres
 quarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/postgres
 
 quarkus.hibernate-orm.schema-management.strategy=update
-
-smallrye.jwt.signer.key-location=privateKey.pem
-smallrye.jwt.verify.publickey.location=publicKey.pem
-mp.jwt.verify.issuer=ibp-chat
-quarkus.smallrye-jwt.auth-mechanism=MP-JWT
