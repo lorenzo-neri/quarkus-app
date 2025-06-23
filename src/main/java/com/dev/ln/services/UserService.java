@@ -2,6 +2,7 @@ package com.dev.ln.services;
 
 import com.dev.ln.models.User;
 import com.dev.ln.repository.UserRepository;
+import com.dev.ln.utils.RefreshRequest;
 import io.quarkus.elytron.security.common.BcryptUtil;
 import io.smallrye.jwt.auth.principal.JWTParser;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -38,17 +39,22 @@ public class UserService {
         String refreshToken = Jwt.issuer("ibp-chat")
                 .upn(user.username)
                 .groups(Set.of(user.role))
-                .expiresIn(Duration.ofDays(7)).claim("refresh", true)
+                .expiresIn(Duration.ofDays(7)).claim("type", "refresh")
                 .sign();
 
         return Map.of("accessToken", accessToken, "refreshToken", refreshToken);
     }
 
-    public Map<String, String> refreshToken(String refreshToken) {
-        try {
-            JsonWebToken jwt = parser.parse(refreshToken);
+    public Map<String, String> refreshToken(RefreshRequest request) {
 
-            if (!jwt.getClaim("type").equals("refresh")) {
+        try {
+
+            System.out.println("Token: " + request.refreshToken);
+            String token = request.refreshToken;
+
+            JsonWebToken jwt = parser.parse(token);
+
+            if (!"refresh".equals(jwt.getClaim("type"))) {
                 throw new NotAuthorizedException("Invalid token");
             }
 
@@ -64,11 +70,12 @@ public class UserService {
                     .subject(jwt.getSubject())
                     .groups(jwt.getGroups())
                     .expiresIn(Duration.ofDays(7))
-                    .claim("refresh", true)
+                    .claim("type", "refresh")
                     .sign();
-            return Map.of("accessToken", newAccessToken);
+            return Map.of("accessToken", newAccessToken, "refreshToken", newRefreshToken);
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new NotAuthorizedException("Invalid token");
         }
     }

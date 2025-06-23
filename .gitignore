@@ -48,3 +48,4 @@ nb-configuration.xml
 src/main/resources/application.properties
 docker-compose.override.yml
 docker/
+quarkus-bruno

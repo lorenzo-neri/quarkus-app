@@ -3,9 +3,8 @@ package com.dev.ln.controllers;
 import com.dev.ln.models.User;
 import com.dev.ln.models.User.Credentials;
 import com.dev.ln.services.UserService;
+import com.dev.ln.utils.RefreshRequest;
 import io.smallrye.common.constraint.NotNull;
-import io.smallrye.jwt.auth.principal.JWTParser;
-import io.smallrye.jwt.build.Jwt;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -16,8 +15,6 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
-import java.time.Duration;
-import java.util.Collections;
 import java.util.Map;
 
 @Path("/api/users")
@@ -66,13 +63,12 @@ public class UserController {
     //REFRESH
     @POST
     @Path("/refresh")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response refreshToken(String refreshToken) {
+    public Response refreshToken(RefreshRequest request) {
+        String refreshToken = request.refreshToken;
         if (refreshToken == null) {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
-         Map<String, String> tokens = userService.refreshToken(refreshToken);
+         Map<String, String> tokens = userService.refreshToken(request);
         return Response.ok(tokens).build();
     }
 
