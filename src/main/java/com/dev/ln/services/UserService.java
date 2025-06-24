@@ -75,7 +75,6 @@ public class UserService {
             return Map.of("accessToken", newAccessToken, "refreshToken", newRefreshToken);
 
         } catch (Exception e) {
-            e.printStackTrace();
             throw new NotAuthorizedException("Invalid token");
         }
     }
